@@ -34,6 +34,9 @@ jobs:
     - name: Build a Docker Image
       run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest .
 
+    - name: Push Images to Docker Hub
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
+
     - name: SSH and Deploy to ec2
       uses: appleboy/ssh-action@v1
       with:
