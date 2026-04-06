@@ -43,7 +43,7 @@ jobs:
         script: |
           docker stop spring-demo || true
           docker rm spring-demo || true
-          sudo fuser -k 8080/tcp || true
+          PID=$(sudo lsof -t -i:8080) && sudo kill -9 $PID || true
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
           docker run -d --name spring-demo -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
       
