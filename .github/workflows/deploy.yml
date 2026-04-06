@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build a Docker Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/spring-boot-ci-demo:latest
+      run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
 
     - name: SSH and Deploy to ec2
       uses: appleboy/ssh-action@v1
@@ -41,6 +41,6 @@ jobs:
         script: |
           docker stop spring-demo || true
           docker rm spring-demo || true
-          docker pull ${{ secrets.DOCKER_USERNAME }}/spring-boot-ci-demo:latest
-          docker run -d --name spring-demo -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/spring-boot-ci-demo:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
+          docker run -d --name spring-demo -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-ci-demo:latest
       
